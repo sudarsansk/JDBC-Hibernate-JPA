@@ -17,7 +17,9 @@ public class JPAUtil {
 
 		// Database connection properties
 		properties.put(PersistenceUnitProperties.JDBC_DRIVER, "org.h2.Driver");
-		properties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:h2:./data/employeedb");
+		properties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:h2:./data/jpa-employeedb");
+		properties.put(PersistenceUnitProperties.JDBC_USER, "admin");
+		properties.put(PersistenceUnitProperties.JDBC_PASSWORD, "admin");
 		entityManagerFactory  = Persistence.createEntityManagerFactory("employeePU", properties);
 		return entityManagerFactory;
 	}
