@@ -2,16 +2,12 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:./data/employeedb</property>
-        <property name="hibernate.connection.username">sa</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:h2:./data/hibemployeedb</property>
+        <property name="hibernate.connection.username">admin</property>
+        <property name="hibernate.connection.password">admin</property>
 
         <!-- H2 dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
-
-        <!-- Echo all executed SQL to stdout -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
@@ -23,7 +19,7 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- Mapping classes -->
-        <mapping class="com.example.model.Employee"/>
+        <mapping class="com.practise.Hibernate_Application.Employee"/>
         
     </session-factory>
 </hibernate-configuration>

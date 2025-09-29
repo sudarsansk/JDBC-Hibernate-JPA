@@ -1,14 +1,19 @@
 package com.practise.JDBC_Application;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import org.h2.tools.Server;
 
 public class JDBC_Application {
 
 	private static JdbcService dbManager;
     private static Scanner scanner;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("=== Employee Management System ===");
         System.out.println("Using H2 Database");
         System.out.println();
@@ -16,11 +21,18 @@ public class JDBC_Application {
         // Initialize database manager and scanner
         dbManager = new JdbcService();
         scanner = new Scanner(System.in);
-
-        // Start the application menu
-        showMenu();
-        
-        // Close scanner when done
+       	Connection con = null;
+        try {
+        	showMenu();
+        	con = DriverManager.getConnection("jdbc:h2:./data/jdbcemployeedb;AUTO_SERVER=TRUE");
+			Server.startWebServer(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				con.close();
+			}    
+		}
         scanner.close();
     }
 

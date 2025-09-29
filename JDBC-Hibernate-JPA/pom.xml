@@ -26,6 +26,20 @@
             <version>6.3.1.Final</version>
         </dependency>
 
+		<!-- Jakarta Persistence API -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        
+         <!-- EclipseLink JPA Implementation -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        
         <!-- H2 Database -->
         <dependency>
             <groupId>com.h2database</groupId>

@@ -12,7 +12,7 @@ import java.util.List;
 public class JdbcService {
 
 	// Simple H2 file database - no configuration needed
-    private static final String DB_URL = "jdbc:h2:./data/employeedb";
+    private static final String DB_URL = "jdbc:h2:./data/jdbcemployeedb";
     
     public JdbcService() {
         try {

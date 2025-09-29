@@ -98,7 +98,7 @@ public class Hibernate_Application {
 
     private static void viewAllEmployees() {
         System.out.println("\n=== ALL EMPLOYEES ===");
-        List<EmployeeHiber> employees = employeeDAO.getAllEmployees();
+        List<Employee> employees = employeeDAO.getAllEmployees();
         
         if (employees.isEmpty()) {
             System.out.println("No employees found.");
@@ -107,7 +107,7 @@ public class Hibernate_Application {
                 "ID", "Name", "Email", "Department", "Salary");
             System.out.println("-".repeat(85));
             
-            for (EmployeeHiber emp : employees) {
+            for (Employee emp : employees) {
                 System.out.printf("%-5d %-20s %-30s %-15s $%-9.2f%n",
                     emp.getId(), emp.getName(), emp.getEmail(), 
                     emp.getDepartment(), emp.getSalary());
@@ -120,7 +120,7 @@ public class Hibernate_Application {
         System.out.print("\nEnter Employee ID: ");
         int id = scanner.nextInt();
         
-        EmployeeHiber employee = employeeDAO.findEmployeeById(id);
+        Employee employee = employeeDAO.findEmployeeById(id);
         
         if (employee != null) {
             System.out.println("\n=== EMPLOYEE DETAILS ===");
@@ -134,7 +134,7 @@ public class Hibernate_Application {
         System.out.print("\nEnter Department: ");
         String department = scanner.nextLine();
         
-        List<EmployeeHiber> employees = employeeDAO.findEmployeesByDepartment(department);
+        List<Employee> employees = employeeDAO.findEmployeesByDepartment(department);
         
         if (employees.isEmpty()) {
             System.out.println("No employees found in " + department + " department.");
@@ -144,7 +144,7 @@ public class Hibernate_Application {
                 "ID", "Name", "Email", "Salary");
             System.out.println("-".repeat(70));
             
-            for (EmployeeHiber emp : employees) {
+            for (Employee emp : employees) {
                 System.out.printf("%-5d %-20s %-30s $%-9.2f%n",
                     emp.getId(), emp.getName(), emp.getEmail(), emp.getSalary());
             }
@@ -167,7 +167,7 @@ public class Hibernate_Application {
         System.out.print("Enter Salary: ");
         double salary = scanner.nextDouble();
         
-        EmployeeHiber newEmployee = new EmployeeHiber(name, email, department, salary);
+        Employee newEmployee = new Employee(name, email, department, salary);
         
         if (employeeDAO.saveEmployee(newEmployee)) {
             System.out.println("Employee added successfully with ID: " + newEmployee.getId());
@@ -181,7 +181,7 @@ public class Hibernate_Application {
         System.out.print("Enter Employee ID to update: ");
         int id = scanner.nextInt();
         
-        EmployeeHiber employee = employeeDAO.findEmployeeById(id);
+        Employee employee = employeeDAO.findEmployeeById(id);
         if (employee == null) {
             System.out.println("Employee with ID " + id + " not found.");
             return;
@@ -226,7 +226,7 @@ public class Hibernate_Application {
         System.out.print("Enter Employee ID to delete: ");
         int id = scanner.nextInt();
         
-        EmployeeHiber employee = employeeDAO.findEmployeeById(id);
+        Employee employee = employeeDAO.findEmployeeById(id);
         if (employee == null) {
             System.out.println("Employee with ID " + id + " not found.");
             return;
@@ -251,7 +251,7 @@ public class Hibernate_Application {
 
     private static void showSampleData() {
         System.out.println("\n=== SAMPLE DATA ===");
-        EmployeeHiber sampleEmployee = employeeDAO.showSampleData();
+        Employee sampleEmployee = employeeDAO.showSampleData();
         if (sampleEmployee != null) {
             displayEmployee(sampleEmployee);
         }
@@ -266,7 +266,7 @@ public class Hibernate_Application {
         System.out.print("Enter maximum salary: ");
         double maxSalary = scanner.nextDouble();
         
-        List<EmployeeHiber> employees = employeeDAO.findEmployeesBySalaryRange(minSalary, maxSalary);
+        List<Employee> employees = employeeDAO.findEmployeesBySalaryRange(minSalary, maxSalary);
         
         if (employees.isEmpty()) {
             System.out.println("No employees found in salary range $" + minSalary + " - $" + maxSalary);
@@ -276,7 +276,7 @@ public class Hibernate_Application {
                 "ID", "Name", "Department", "Salary");
             System.out.println("-".repeat(55));
             
-            for (EmployeeHiber emp : employees) {
+            for (Employee emp : employees) {
                 System.out.printf("%-5d %-20s %-15s $%-9.2f%n",
                     emp.getId(), emp.getName(), emp.getDepartment(), emp.getSalary());
             }
@@ -299,7 +299,7 @@ public class Hibernate_Application {
         }
     }
 
-    private static void displayEmployee(EmployeeHiber employee) {
+    private static void displayEmployee(Employee employee) {
         System.out.println("ID: " + employee.getId());
         System.out.println("Name: " + employee.getName());
         System.out.println("Email: " + employee.getEmail());

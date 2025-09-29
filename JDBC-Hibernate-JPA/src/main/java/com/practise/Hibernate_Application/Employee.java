@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "employees")
-public class EmployeeHiber {
+@Table(name = "Employee")
+public class Employee {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +24,14 @@ public class EmployeeHiber {
     @Column(name = "department", nullable = false, length = 50)
     private String department;
     
-    @Column(name = "salary", nullable = false, precision = 10, scale = 2)
+    @Column(name = "salary", nullable = false, precision = 10)
     private double salary;
 
     // Default constructor (required by Hibernate)
-    public EmployeeHiber() {}
+    public Employee() {}
 
     // Constructor without ID (for new employees)
-    public EmployeeHiber(String name, String email, String department, double salary) {
+    public Employee(String name, String email, String department, double salary) {
         this.name = name;
         this.email = email;
         this.department = department;
@@ -39,7 +39,7 @@ public class EmployeeHiber {
     }
 
     // Constructor with ID (for existing employees)
-    public EmployeeHiber(int id, String name, String email, String department, double salary) {
+    public Employee(int id, String name, String email, String department, double salary) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -103,7 +103,7 @@ public class EmployeeHiber {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EmployeeHiber employee = (EmployeeHiber) o;
+        Employee employee = (Employee) o;
         return id == employee.id;
     }
 

@@ -10,7 +10,7 @@ import org.hibernate.query.Query;
 public class HiberanteService {
 
 	// Save employee (Insert)
-    public boolean saveEmployee(EmployeeHiber employee) {
+    public boolean saveEmployee(Employee employee) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -29,9 +29,9 @@ public class HiberanteService {
     }
 
     // Find employee by ID
-    public EmployeeHiber findEmployeeById(int id) {
+    public Employee findEmployeeById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-        	EmployeeHiber employee = session.get(EmployeeHiber.class, id);
+        	Employee employee = session.get(Employee.class, id);
             if (employee != null) {
                 System.out.println("Found employee: " + employee);
             } else {
@@ -46,11 +46,11 @@ public class HiberanteService {
     }
 
     // Get all employees
-    public List<EmployeeHiber> getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // Using HQL (Hibernate Query Language)
-            Query<EmployeeHiber> query = session.createQuery("FROM Employee ORDER BY id", EmployeeHiber.class);
-            List<EmployeeHiber> employees = query.getResultList();
+            Query<Employee> query = session.createQuery("FROM Employee ORDER BY id", Employee.class);
+            List<Employee> employees = query.getResultList();
             System.out.println("Found " + employees.size() + " employees");
             return employees;
         } catch (Exception e) {
@@ -61,13 +61,13 @@ public class HiberanteService {
     }
 
     // Find employees by department
-    public List<EmployeeHiber> findEmployeesByDepartment(String department) {
+    public List<Employee> findEmployeesByDepartment(String department) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // Using HQL with parameter
             String hql = "FROM Employee WHERE department = :dept ORDER BY name";
-            Query<EmployeeHiber> query = session.createQuery(hql, EmployeeHiber.class);
+            Query<Employee> query = session.createQuery(hql, Employee.class);
             query.setParameter("dept", department);
-            List<EmployeeHiber> employees = query.getResultList();
+            List<Employee> employees = query.getResultList();
             System.out.println("Found " + employees.size() + " employees in " + department + " department");
             return employees;
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class HiberanteService {
     }
 
     // Update employee
-    public boolean updateEmployee(EmployeeHiber employee) {
+    public boolean updateEmployee(Employee employee) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -101,7 +101,7 @@ public class HiberanteService {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            EmployeeHiber employee = session.get(EmployeeHiber.class, id);
+            Employee employee = session.get(Employee.class, id);
             if (employee != null) {
                 session.remove(employee);  // Hibernate 6.x method for delete
                 transaction.commit();
@@ -122,7 +122,7 @@ public class HiberanteService {
     }
 
     // Show sample data - get a random employee
-    public EmployeeHiber showSampleData() {
+    public Employee showSampleData() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // First, get the count of employees
             Long count = session.createQuery("SELECT COUNT(e) FROM Employee e", Long.class)
@@ -138,13 +138,13 @@ public class HiberanteService {
             int randomId = random.nextInt(count.intValue()) + 1;
             
             // Get employee by the random ID
-            EmployeeHiber employee = session.get(EmployeeHiber.class, randomId);
+            Employee employee = session.get(Employee.class, randomId);
             
             if (employee != null) {
                 System.out.println("Random sample employee: " + employee);
             } else {
                 // Fallback: get first employee if random ID doesn't exist
-                employee = session.createQuery("FROM Employee ORDER BY id", EmployeeHiber.class)
+                employee = session.createQuery("FROM Employee ORDER BY id", Employee.class)
                                  .setMaxResults(1)
                                  .getSingleResult();
                 System.out.println("Sample employee (first in database): " + employee);
@@ -159,13 +159,13 @@ public class HiberanteService {
     }
 
     // Get employees with salary greater than specified amount
-    public List<EmployeeHiber> findEmployeesBySalaryRange(double minSalary, double maxSalary) {
+    public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Employee WHERE salary BETWEEN :minSal AND :maxSal ORDER BY salary DESC";
-            Query<EmployeeHiber> query = session.createQuery(hql, EmployeeHiber.class);
+            Query<Employee> query = session.createQuery(hql, Employee.class);
             query.setParameter("minSal", minSalary);
             query.setParameter("maxSal", maxSalary);
-            List<EmployeeHiber> employees = query.getResultList();
+            List<Employee> employees = query.getResultList();
             System.out.println("Found " + employees.size() + " employees with salary between " 
                              + minSalary + " and " + maxSalary);
             return employees;
@@ -211,18 +211,18 @@ public class HiberanteService {
             Transaction transaction = session.beginTransaction();
             
             // Create sample employees
-            EmployeeHiber[] employees = {
-                new EmployeeHiber("John Doe", "john.doe@company.com", "Engineering", 75000.00),
-                new EmployeeHiber("Jane Smith", "jane.smith@company.com", "Marketing", 65000.00),
-                new EmployeeHiber("Mike Johnson", "mike.johnson@company.com", "Engineering", 80000.00),
-                new EmployeeHiber("Sarah Williams", "sarah.williams@company.com", "HR", 55000.00),
-                new EmployeeHiber("David Brown", "david.brown@company.com", "Finance", 70000.00),
-                new EmployeeHiber("Lisa Davis", "lisa.davis@company.com", "Engineering", 78000.00),
-                new EmployeeHiber("Tom Wilson", "tom.wilson@company.com", "Marketing", 62000.00),
-                new EmployeeHiber("Emma Garcia", "emma.garcia@company.com", "HR", 58000.00)
+            Employee[] employees = {
+                new Employee("John Doe", "john.doe@company.com", "Engineering", 75000.00),
+                new Employee("Jane Smith", "jane.smith@company.com", "Marketing", 65000.00),
+                new Employee("Mike Johnson", "mike.johnson@company.com", "Engineering", 80000.00),
+                new Employee("Sarah Williams", "sarah.williams@company.com", "HR", 55000.00),
+                new Employee("David Brown", "david.brown@company.com", "Finance", 70000.00),
+                new Employee("Lisa Davis", "lisa.davis@company.com", "Engineering", 78000.00),
+                new Employee("Tom Wilson", "tom.wilson@company.com", "Marketing", 62000.00),
+                new Employee("Emma Garcia", "emma.garcia@company.com", "HR", 58000.00)
             };
 
-            for (EmployeeHiber emp : employees) {
+            for (Employee emp : employees) {
                 session.persist(emp);
             }
 
